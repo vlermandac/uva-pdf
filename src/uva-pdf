@@ -1,0 +1,29 @@
+#!/bin/sh
+#TO DO:
+#if file exists open up
+#create a flag for just downloading
+#create flag to set path
+
+if [ $# -lt 2 ]; then
+	echo "Arguments missing."
+	exit 1
+fi
+
+name=$1
+sub=${name::-2}
+
+url="https://onlinejudge.org/external/${sub}/${name}.pdf"
+
+og=$(pwd)
+
+cd; cd ~/progcomp/ch$2/problems/
+
+file="${name}.pdf"
+
+if [ ! -f  "$file" ]; then curl -# -LO $url; fi
+
+zathura $file & disown
+
+cd; cd $og
+
+clear
